@@ -1,7 +1,5 @@
 package g6.project.CamadaCodigo.Funcionario;
 
-import java.util.Set;
-
 public class Funcionario {
     private int idFuncionario;
     private int cpf;

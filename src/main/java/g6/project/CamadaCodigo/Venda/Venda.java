@@ -1,25 +1,45 @@
 package g6.project.CamadaCodigo.Venda;
 
 import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.Date;
+
+import g6.project.CamadaCodigo.Funcionario.Funcionario;
 
 public class Venda {
     private Date data;
     private int codigoVenda;
     private float valorVenda;
     private LocalTime horario;
-    //private Pagamento Pagamento;
-    //private ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario;
-    //private ArrayList<ItemDeVendaPeso> listaDeVendaPeso;
-    //private Funcionario funcionario;
-
-
-    /*
-     * getpagamento();
-     * getlistaDeVendaUnitario();
-     * getlistaDeVendaPeso();
-     * getfuncionario();
-     */
+    private Pagamento Pagamento;
+    private ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario;
+    private ArrayList<ItemDeVendaPeso> listaDeVendaPeso;
+    private Funcionario funcionario;
+    public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
+     Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda){
+        Date data = new Date();
+        LocalTime horaAtual = LocalTime.now();
+        setCodigoVenda(codigoVenda);
+        setData(data);
+        setFuncionario(funcionario);
+        setHorario(horaAtual);
+        setListaDeVendaPeso(listaDeVendaPeso);
+        setListaDeVendaUnitario(listaDeVendaUnitario);
+        setPagamento(Pagamento);
+        setValorVenda(valorVenda);
+    }
+    public Funcionario getFuncionario() {
+        return funcionario;
+    }
+    public ArrayList<ItemDeVendaPeso> getListaDeVendaPeso() {
+        return listaDeVendaPeso;
+    }
+    public ArrayList<ItemDeVendaUnitario> getListaDeVendaUnitario() {
+        return listaDeVendaUnitario;
+    }
+    public Pagamento getPagamento() {
+        return Pagamento;
+    }
     public int getCodigoVenda() {
         return codigoVenda;
     }
@@ -33,13 +53,18 @@ public class Venda {
         return valorVenda;
     }
 
-
-    /*
-     * setpagamento();
-     * associarlistaDeVendaUnitario();
-     * associarlistaDeVendaPeso();
-     * associarfuncionario();
-     */
+    public void setFuncionario(Funcionario funcionario) {
+        this.funcionario = funcionario;
+    }
+    public void setListaDeVendaPeso(ArrayList<ItemDeVendaPeso> listaDeVendaPeso) {
+        this.listaDeVendaPeso = listaDeVendaPeso;
+    }
+    public void setListaDeVendaUnitario(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario) {
+        this.listaDeVendaUnitario = listaDeVendaUnitario;
+    }
+    public void setPagamento(Pagamento pagamento) {
+        Pagamento = pagamento;
+    }
     public void setCodigoVenda(int codigoVenda) {
         this.codigoVenda = codigoVenda;
     }
