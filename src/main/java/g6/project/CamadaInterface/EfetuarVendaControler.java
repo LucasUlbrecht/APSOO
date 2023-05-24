@@ -170,7 +170,6 @@ public class EfetuarVendaControler {
         } catch (SQLException e){
             e.printStackTrace();
         }
-
     }
 
 
