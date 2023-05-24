@@ -2,6 +2,8 @@ package g6.project.CamadaCodigo.Venda;
 
 public class Pagamento {
     private String tipoPagamento;
+    public Pagamento(String string) {
+    }
     public String getTipoPagamento() {
         return tipoPagamento;
     }

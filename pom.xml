@@ -1,4 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>g6.project</groupId>
@@ -10,32 +10,36 @@
         <maven.compiler.target>11</maven.compiler.target>
     </properties>
     <dependencies>
-
         <dependency>
             <groupId>org.eclipse.dataspaceconnector</groupId>
             <artifactId>sql</artifactId>
             <version>0.0.1-milestone-5.1</version>
         </dependency>
-
-
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
+        </dependency>
         <dependency>
             <groupId>io.syndesis</groupId>
             <artifactId>sql-connectors</artifactId>
             <version>1.3.0-20180202</version>
             <type>pom</type>
         </dependency>
-
-
         <dependency>
             <groupId>org.eclipse.dataspaceconnector</groupId>
             <artifactId>sql</artifactId>
             <version>0.0.1-milestone-5.1</version>
         </dependency>
-
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
             <version>13</version>
+        </dependency>
+         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>16</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
