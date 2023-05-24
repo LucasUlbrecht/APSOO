@@ -15,6 +15,8 @@ public class Venda {
     private ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario;
     private ArrayList<ItemDeVendaPeso> listaDeVendaPeso;
     private Funcionario funcionario;
+
+    //construtor
     public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
      Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda){
         Date data = new Date();
@@ -83,4 +85,30 @@ public class Venda {
     public void finalizarVenda(){
 
     }
+
+    public void cancelarVenda() {
+        boolean cancelar=false;
+
+        System.out.println("Deseja realmente cancelar esta venda?");
+
+        if(cancelar==true){
+
+            this.Pagamento.cancelarPagamento();
+        
+            
+            for (ItemDeVendaUnitario item : this.listaDeVendaUnitario) {
+                item.cancelarVenda(item);
+            }
+            for (ItemDeVendaPeso item : this.listaDeVendaPeso) {
+                item.cancelarVenda(item);
+            }
+        
+            // - Outras etapas necessárias para cancelar a venda
+        
+            System.out.println("Venda cancelada com sucesso!");
+        }
+    }
+    
+
+
 }
