@@ -28,4 +28,7 @@ public class ItemDeVendaPeso extends ItemDeVenda{
     public float calculaValor(){
         return getPeso()*prodVend.getValor();
     }
+    public void cancelarVenda(ItemDeVendaPeso item) {
+        item = null;
+    }
 }
