@@ -1,17 +1,29 @@
 package g6.project.CamadaInterface;
-//g6.project.CamadaInterfaceEfetuarVendaControler
+
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Random;
 
 import g6.project.CamadaCodigo.Venda.Pagamento;
 import g6.project.CamadaCodigo.Venda.Venda;
+import g6.project.CamadaPersistencia.Implementacao.ImplementacaoProdutoVendidvel;
+import g6.project.CamadaPersistencia.Implementacao.ImplementacaoVendaDAO;
+import g6.project.Conexao;
 import g6.project.CamadaCodigo.Funcionario.Funcionario;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaPeso;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaUnitario;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class EfetuarVendaControler {
     @FXML
@@ -20,7 +32,10 @@ public class EfetuarVendaControler {
     private TextField inserirPeso;
     @FXML
     private Button confirmarPagamentoButton;
-
+    Stage popupPagamento;
+    Button pixButton;
+    Button dinheiroButton;
+    Button cartaoButton;
     private ArrayList<ItemDeVendaPeso> listaItensPeso;
     private ArrayList<ItemDeVendaUnitario> listaItensUnitario;
     private Pagamento pagamento;
@@ -49,8 +64,14 @@ public class EfetuarVendaControler {
     public ArrayList<ItemDeVendaPeso> getListaItemDeVendaPeso() {
         return listaItensPeso;
     }
+    public ArrayList<ItemDeVendaUnitario> getListaItemDeVendaUnitario() {
+        return listaItensUnitario;
+    }
     public void associarListaItemDeVendaPeso(ItemDeVendaPeso ListaDeVendaPesoNova){
         this.listaItensPeso.add(ListaDeVendaPesoNova);
+    }
+    private void associarListaItemDeVendaUnitario(ItemDeVendaUnitario ListaDeVendaUnitarioNova) {
+        this.listaItensUnitario.add(ListaDeVendaUnitarioNova);
     }
     public void setListaItensPeso(ArrayList<ItemDeVendaPeso> listaItensPeso) {
         this.listaItensPeso = listaItensPeso;
@@ -64,8 +85,11 @@ public class EfetuarVendaControler {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
+
+
+
     @FXML
-    public void cancelarVenda(){
+    public void cancelarVenda(ActionEvent event) throws IOException{
         setPagamento(null);
         setListaItensPeso(null);
         setListaItensUnitario(null);
@@ -73,46 +97,99 @@ public class EfetuarVendaControler {
         setValorTotal(0);
         return;
     }
+
+
+
     @FXML
-    public void tipoPagamento(){
-        //gerar tela tipoPagamento
-        //set new scene;
-        //meubotao.setOnAction(event->{
-        //  Pagamento tmp = new Pagamento("Tipo pagamento");  
-        //  })
-        //  retorna a antiga scene ou deleta essa nova cena;
-        //  setPagamento(tmp)
+    public void tipoPagamento(ActionEvent Event) throws IOException{
+        String nome;
+        Stage popupStage = new Stage();
+        VBox popupRoot = new VBox(pixButton);
+        Scene popupScene = new Scene(popupRoot, 450, 500);
+        popupStage.initOwner(((Node) Event.getSource()).getScene().getWindow());
+        popupStage.initModality(Modality.WINDOW_MODAL);
+        pixButton = new Button("Pix");
+        pixButton.setOnAction(event -> {
+            this.setPagamento(new Pagamento("Pix"));
+            
+            popupStage.close();
+        });
+        dinheiroButton=new Button("Dinheiro");
+        dinheiroButton.setOnAction(event -> {
+            this.setPagamento(new Pagamento("Dinheiro"));
+            
+            popupStage.close();
+        });
+        cartaoButton=new Button("Cartão");
+        cartaoButton.setOnAction(event -> {
+            this.setPagamento(new Pagamento("Cartão"));
+            
+            popupStage.close();
+        });
+        popupStage.showAndWait();
         return;
     }
+
+
+
     @FXML
-    public void adicionarItemVendaPeso(float peso){
+    public void adicionarItemVendaPeso(ActionEvent event) throws IOException{
+        float peso=Float.parseFloat(inserirPeso.getText());
         int cod=1;
         ItemDeVendaPeso tmp;
-        //Conexao.conectar();
-        //tmp=new ItemDeVendaPeso(DAOVendivel.get(cod), peso);
-        //this.associarListaItemDeVendaPeso(tmp);
-        //this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
-        //criar novo root com nome e valor na label e adicionar na scene
-        //Conexao.desconectar();
+        try {
+            Connection connection = Conexao.conectar();
+            ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
+            tmp=new ItemDeVendaPeso(ProdVendDAO.get(cod), peso);
+            this.associarListaItemDeVendaPeso(tmp);
+            this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
+            //criar novo root com nome e valor na label e adicionar na scene
+            Conexao.desconectar();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        
         return;
     }
+
+
+
+
     @FXML
-    public void adicionarItemVendaUnitario(int cod){
+    public void adicionarItemVendaUnitario(ActionEvent event) throws IOException{
+        int cod=Integer.parseInt(pesquisarCodBarras.getText());
         ItemDeVendaUnitario tmp;
-        //Conexao.conectar();
-        //tmp=new ItemDeVendaUnitario(cod, 1, DAOVendivel.get(cod));
-        //this.associarListaItemDeVendaPeso(tmp);
-        //this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
-        //criar novo root com nome e valor na label e adicionar na scene
-        //Conexao.desconectar();
+        try{
+            Connection connection = Conexao.conectar();
+            ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
+            tmp=new ItemDeVendaUnitario(cod, 1, ProdVendDAO.get(cod));
+            this.associarListaItemDeVendaUnitario(tmp);
+            this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
+            //criar novo root com nome e valor na label e adicionar na scene
+            Conexao.desconectar();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
+
     }
+
+
+
     @FXML
-    public void confirmar(){
-        //Conexao.conectar();
-        //do{cod=gerarRandomCod}while(VendaDAO.get(cod)!=NULL);
-        //v = new Venda(getListaDeVendaUnitario(), getListaDeVendaPeso(), getFuncionario(), getPagamento(), getValorVenda(), getCodigoVenda());
-        //vendaDAO.insert(v);
-        //Conexao.desconectar();
+    public void confirmar(ActionEvent event) throws IOException{
+        try{
+            tipoPagamento(event);
+            Connection connection = Conexao.conectar();
+            ImplementacaoVendaDAO vendaDAO = new ImplementacaoVendaDAO();
+            Random random = new Random();
+            int cod;
+            do{cod = random.nextInt(1_000_000_000 + 1);}while(vendaDAO.get(cod)!=null);
+            v = new Venda(getListaItemDeVendaUnitario(), getListaItemDeVendaPeso(), getFuncionario(), getPagamento(), getValorTotal(), cod);
+            vendaDAO.insert(v);
+            Conexao.desconectar();
+        } catch (SQLException e){
+            e.printStackTrace();
+        }
         return;
     }
 }
