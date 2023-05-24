@@ -34,4 +34,7 @@ public class ItemDeVendaUnitario extends ItemDeVenda{
     public float calculaValor(){
         return prodVend.getValor();
     }
+    public void cancelarVenda(ItemDeVendaUnitario item) {
+        item = null;     
+    }
 }
