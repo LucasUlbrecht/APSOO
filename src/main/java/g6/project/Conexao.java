@@ -23,5 +23,6 @@ public class Conexao {
         if (connection != null && !connection.isClosed()) {
             connection.close();
         }
+        return;
     }
 }
