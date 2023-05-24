@@ -2,14 +2,16 @@ package g6.project.CamadaCodigo.Venda;
 
 import g6.project.CamadaCodigo.Produto.ProdutoVendivel;
 
-public class ItemDeVendaUnitario {
+public class ItemDeVendaUnitario extends ItemDeVenda{
     private int quantidade;
     private int codigoItem;
     private ProdutoVendivel prodVend;
-    public ItemDeVendaUnitario(int codigoItem, int quantidade, ProdutoVendivel prodVend){
+    public ItemDeVendaUnitario(String nome, int codigoItem, int quantidade, ProdutoVendivel prodVend, float valor){
+        super(nome, valor);
         setCodigoItem(codigoItem);
         setProdVend(prodVend);
         setQuantidade(quantidade);
+        
     }
     public ProdutoVendivel getProdVend() {
         return prodVend;

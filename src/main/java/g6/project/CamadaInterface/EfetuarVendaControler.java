@@ -13,13 +13,22 @@ import g6.project.CamadaPersistencia.Implementacao.ImplementacaoProdutoVendidvel
 import g6.project.CamadaPersistencia.Implementacao.ImplementacaoVendaDAO;
 import g6.project.Conexao;
 import g6.project.CamadaCodigo.Funcionario.Funcionario;
+import g6.project.CamadaCodigo.Produto.ProdutoVendivel;
+import g6.project.CamadaCodigo.Venda.ItemDeVenda;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaPeso;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaUnitario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -32,6 +41,14 @@ public class EfetuarVendaControler {
     private TextField inserirPeso;
     @FXML
     private Button confirmarPagamentoButton;
+    @FXML
+    private TableView<ItemDeVenda> tabela;
+    @FXML
+    private TableColumn<ItemDeVenda, String> tabelaProdutoNome;
+    @FXML
+    private TableColumn<ItemDeVenda, Float> tabelaProdutoPreco;
+    @FXML
+    private Label totalLabel;
     Stage popupPagamento;
     Button pixButton;
     Button dinheiroButton;
@@ -86,7 +103,11 @@ public class EfetuarVendaControler {
         this.funcionario = funcionario;
     }
 
-
+    public void initialize() {
+        tabelaProdutoNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
+        tabelaProdutoPreco.setCellValueFactory(new PropertyValueFactory<>("Preço"));
+        totalLabel.setText("");
+    }
 
     @FXML
     public void cancelarVenda(ActionEvent event) throws IOException{
@@ -95,6 +116,12 @@ public class EfetuarVendaControler {
         setListaItensUnitario(null);
         setFuncionario(null);
         setValorTotal(0);
+        pesquisarCodBarras.setText("");
+        inserirPeso.setText("");
+        totalLabel.setText("");
+        ObservableList<ItemDeVenda> listaItens = FXCollections.observableArrayList();
+        listaItens.add(null);
+        tabela.setItems(listaItens);
         return;
     }
 
@@ -140,10 +167,17 @@ public class EfetuarVendaControler {
         try {
             Connection connection = Conexao.conectar();
             ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
-            tmp=new ItemDeVendaPeso(ProdVendDAO.get(cod), peso);
+            ProdutoVendivel proVend= ProdVendDAO.get(cod);
+            tmp=new ItemDeVendaPeso(proVend, proVend.getNomeProduto(), peso, 0);
+            tmp.setValor(tmp.calculaValor());
             this.associarListaItemDeVendaPeso(tmp);
-            this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
-            //criar novo root com nome e valor na label e adicionar na scene
+            this.setValorTotal(this.getValorTotal()+tmp.getValor());
+            ObservableList<ItemDeVenda> listaItens = FXCollections.observableArrayList();
+            ItemDeVenda tmpItemVend = new ItemDeVenda(tmp.getNome(), tmp.getValor());
+            listaItens.add(tmpItemVend);
+            listaItens.add(tmpItemVend);
+            tabela.setItems(listaItens);
+            totalLabel.setText(Float.toString(valorTotal));
             Conexao.desconectar();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -162,10 +196,16 @@ public class EfetuarVendaControler {
         try{
             Connection connection = Conexao.conectar();
             ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
-            tmp=new ItemDeVendaUnitario(cod, 1, ProdVendDAO.get(cod));
+            tmp=new ItemDeVendaUnitario(null, cod, 1, ProdVendDAO.get(cod), 0);
+            tmp.setValor(tmp.calculaValor());
             this.associarListaItemDeVendaUnitario(tmp);
-            this.setValorTotal(this.getValorTotal()+tmp.calculaValor());
-            //criar novo root com nome e valor na label e adicionar na scene
+            this.setValorTotal(this.getValorTotal()+tmp.getValor());
+            ObservableList<ItemDeVenda> listaItens = FXCollections.observableArrayList();
+            ItemDeVenda tmpItemVend = new ItemDeVenda(tmp.getNome(), tmp.getValor());
+            listaItens.add(tmpItemVend);
+            listaItens.add(tmpItemVend);
+            tabela.setItems(listaItens);
+            totalLabel.setText(Float.toString(valorTotal));
             Conexao.desconectar();
         } catch (SQLException e){
             e.printStackTrace();
@@ -185,10 +225,16 @@ public class EfetuarVendaControler {
             do{cod = random.nextInt(1_000_000_000 + 1);}while(vendaDAO.get(cod)!=null);
             v = new Venda(getListaItemDeVendaUnitario(), getListaItemDeVendaPeso(), getFuncionario(), getPagamento(), getValorTotal(), cod);
             vendaDAO.insert(v);
+            cancelarVenda(event);
             Conexao.desconectar();
         } catch (SQLException e){
             e.printStackTrace();
         }
         return;
+    }
+    private void popUpConclusão(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText("Venda Concluída!");
+        alert.showAndWait();
     }
 }
