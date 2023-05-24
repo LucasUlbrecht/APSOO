@@ -9,5 +9,7 @@ public class Pagamento {
     }
     public void setTipoPagamento(String tipoPagamento) {
         this.tipoPagamento = tipoPagamento;
+    }
+    public void cancelarPagamento() {
     } 
 }
