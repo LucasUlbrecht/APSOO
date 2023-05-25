@@ -23,7 +23,7 @@ public class ImplementacaoItens implements ItensDAO{
     }
     public void insertListPeso(ArrayList<ItemDeVendaPeso> t, int cod) throws SQLException{
         Connection connection = Conexao.conectar();
-        String sql = "INSERT INTO itemVenda  (valor, peso, codVenda) VALUES (?, ?)";
+        String sql = "INSERT INTO itemVenda  (valor, peso, codVenda) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (ItemDeVendaPeso item : t) {
                 statement.setString(1, item.getNome());
@@ -38,7 +38,7 @@ public class ImplementacaoItens implements ItensDAO{
     }
     public void insertListUnitario(ArrayList<ItemDeVendaUnitario> t, int cod) throws SQLException{
         Connection connection = Conexao.conectar();
-        String sql = "INSERT INTO itemVenda  (valor, peso, quantidade, codVenda) VALUES (?, ?)";
+        String sql = "INSERT INTO itemVenda  (valor, peso, quantidade, codVenda) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             for (ItemDeVendaUnitario item : t) {
                 statement.setString(1, item.getNome());

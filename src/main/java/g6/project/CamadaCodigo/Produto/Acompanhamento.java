@@ -5,6 +5,10 @@ public class Acompanhamento extends Produto{
         super(codigoProduto, lote, nomeProduto);
         setQuantidadeEstoque(lote);
     }
+    @Override
+    public int getCodigoProduto() {
+        return super.getCodigoProduto();
+    }
     private int quantidadeEstoque;
     public int getQuantidadeEstoque() {
         return quantidadeEstoque;
