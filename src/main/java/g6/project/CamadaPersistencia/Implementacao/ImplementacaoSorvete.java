@@ -18,11 +18,4 @@ public class ImplementacaoSorvete implements SorveteDAO {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
-
-    @Override
-    public ArrayList<Sorvete> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
-    }
-    
 }

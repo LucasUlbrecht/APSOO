@@ -5,5 +5,4 @@ import java.util.ArrayList;
 public interface DAO<T> {
     int insert(T t);
     T get(int cod);
-    ArrayList<T> getAll();
 }

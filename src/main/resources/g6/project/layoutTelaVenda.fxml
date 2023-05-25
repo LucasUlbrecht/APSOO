@@ -54,7 +54,12 @@
          <bottom>
             <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="87.0" prefWidth="662.0" style="-fx-border-color: ffaec9; -fx-border-width: 2px 0px 0px 0px;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="confirmarPagamentoButton" layoutX="245.0" layoutY="27.0" mnemonicParsing="false" onAction="#confirmar" style="-fx-background-color: ffaec9; -fx-border-radius: 5px; -fx-cursor: hand;" text="Confirmar Pagamento">
+                  <Button fx:id="confirmarPagamentoButton" layoutX="14.0" layoutY="28.0" mnemonicParsing="false" style="-fx-background-color: ffaec9; -fx-border-radius: 5px; -fx-cursor: hand;" text="Confirmar Pagamento">
+                     <font>
+                        <Font size="15.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="cancelarVendaButton" layoutX="214.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="167.0" style="-fx-background-color: ffaec9; -fx-border-width: 5px; -fx-cursor: hand;" text="Cancelar Venda">
                      <font>
                         <Font size="15.0" />
                      </font>
@@ -70,8 +75,8 @@
                         <Image url="@../../Downloads/botao-voltar.png" />
                      </image>
                   </ImageView>
-                  <TextField fx:id="pesquisarCodBarras" layoutX="251.0" layoutY="25.0" onAction="#adicionarItemVendaUnitario" prefHeight="30.0" prefWidth="160.0" promptText="Pesquisar código de barras" style="-fx-border-color: ffaec9; -fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-cursor: text;" />
-                  <TextField fx:id="inserirPeso" layoutX="462.0" layoutY="25.0" onAction="#adicionarItemVendaPeso" prefHeight="30.0" prefWidth="160.0" promptText="Inserir peso" style="-fx-border-color: ffaec9; -fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-cursor: text;" />
+                  <TextField fx:id="pesquisarCodBarras" layoutX="251.0" layoutY="25.0" prefHeight="30.0" prefWidth="160.0" promptText="Pesquisar código de barras" style="-fx-border-color: ffaec9; -fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-cursor: text;" />
+                  <TextField fx:id="inserirPeso" layoutX="462.0" layoutY="25.0" prefHeight="30.0" prefWidth="160.0" promptText="Inserir peso" style="-fx-border-color: ffaec9; -fx-background-color: transparent; -fx-border-radius: 5px; -fx-border-width: 2px; -fx-cursor: text;" />
                   <Button fx:id="voltarBotao" alignment="TOP_RIGHT" layoutX="17.0" layoutY="20.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="40.0" style="-fx-background-color: transparent; -fx-cursor: hand;">
                      <font>
                         <Font name="Calibri" size="20.0" />

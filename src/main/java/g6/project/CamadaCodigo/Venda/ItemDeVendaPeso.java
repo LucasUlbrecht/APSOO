@@ -25,6 +25,7 @@ public class ItemDeVendaPeso extends ItemDeVenda{
     public void setPeso(float peso) {
         this.peso = peso;
     }
+    @Override
     public float calculaValor(){
         return getPeso()*prodVend.getValor();
     }

@@ -17,10 +17,9 @@ public class Venda {
     private Funcionario funcionario;
     public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
      Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda){
-        Date data = new Date();
+        Date    data = new Date();
         LocalTime horaAtual = LocalTime.now();
         setCodigoVenda(codigoVenda);
-        setData(data);
         setFuncionario(funcionario);
         setHorario(horaAtual);
         setListaDeVendaPeso(listaDeVendaPeso);
@@ -28,6 +27,22 @@ public class Venda {
         setPagamento(Pagamento);
         setValorVenda(valorVenda);
     }
+    public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
+    Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda, Date data, LocalTime horaAtual){
+       if(data==null){
+           data = new Date();
+       }
+       if(horaAtual==null){
+       horaAtual = LocalTime.now();
+       }
+       setCodigoVenda(codigoVenda);
+       setFuncionario(funcionario);
+       setHorario(horaAtual);
+       setListaDeVendaPeso(listaDeVendaPeso);
+       setListaDeVendaUnitario(listaDeVendaUnitario);
+       setPagamento(Pagamento);
+       setValorVenda(valorVenda);
+   }
     public Funcionario getFuncionario() {
         return funcionario;
     }

@@ -17,12 +17,5 @@ public class ImplementacaoAcompanhamento implements AcompanhamentoDAO{
     public Acompanhamento get(int cod) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
-
-    @Override
-    public ArrayList<Acompanhamento> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
-    }
-    
+    } 
 }

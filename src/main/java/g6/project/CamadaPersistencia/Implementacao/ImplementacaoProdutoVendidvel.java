@@ -17,12 +17,5 @@ public class ImplementacaoProdutoVendidvel implements ProdutoVendivelDAO{
     public ProdutoVendivel get(int cod) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
-
-    @Override
-    public ArrayList<ProdutoVendivel> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
-    }
-    
+    } 
 }

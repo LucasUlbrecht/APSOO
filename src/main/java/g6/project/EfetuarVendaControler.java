@@ -1,17 +1,18 @@
-package g6.project.CamadaInterface;
+package g6.project;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.ResourceBundle;
 
 import g6.project.CamadaCodigo.Venda.Pagamento;
 import g6.project.CamadaCodigo.Venda.Venda;
 import g6.project.CamadaPersistencia.Implementacao.ImplementacaoProdutoVendidvel;
 import g6.project.CamadaPersistencia.Implementacao.ImplementacaoVendaDAO;
-import g6.project.Conexao;
 import g6.project.CamadaCodigo.Funcionario.Funcionario;
 import g6.project.CamadaCodigo.Produto.ProdutoVendivel;
 import g6.project.CamadaCodigo.Venda.ItemDeVenda;
@@ -21,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -34,7 +36,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.Node;
 
-public class EfetuarVendaControler {
+public class EfetuarVendaControler implements Initializable{
     @FXML
     private TextField pesquisarCodBarras;
     @FXML
@@ -103,11 +105,11 @@ public class EfetuarVendaControler {
         this.funcionario = funcionario;
     }
 
-    public void initialize() {
-        tabelaProdutoNome.setCellValueFactory(new PropertyValueFactory<>("Nome"));
-        tabelaProdutoPreco.setCellValueFactory(new PropertyValueFactory<>("Preço"));
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
         totalLabel.setText("");
     }
+    
 
     @FXML
     public void cancelarVenda(ActionEvent event) throws IOException{
@@ -207,6 +209,7 @@ public class EfetuarVendaControler {
             tabela.setItems(listaItens);
             totalLabel.setText(Float.toString(valorTotal));
             Conexao.desconectar();
+            popUpConclusão();
         } catch (SQLException e){
             e.printStackTrace();
         }

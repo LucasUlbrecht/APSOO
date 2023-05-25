@@ -31,6 +31,7 @@ public class ItemDeVendaUnitario extends ItemDeVenda{
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+    @Override
     public float calculaValor(){
         return prodVend.getValor();
     }

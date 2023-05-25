@@ -4,7 +4,6 @@ public class Produto {
     private int codigoProduto;
     private int lote;
     private String nomeProduto;
-    //getters
     public int getCodigoProduto() {
         return codigoProduto;
     }
@@ -14,7 +13,6 @@ public class Produto {
     public String getNomeProduto() {
         return nomeProduto;
     }
-    //setters
     public void setCodigoProduto(int codigoProduto) {
         this.codigoProduto = codigoProduto;
     }

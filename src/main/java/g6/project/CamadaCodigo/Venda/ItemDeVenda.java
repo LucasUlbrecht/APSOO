@@ -19,4 +19,7 @@ public class ItemDeVenda {
     public float getValor() {
         return valor;
     }
+    public float calculaValor(){
+        return 0;
+    }
 }

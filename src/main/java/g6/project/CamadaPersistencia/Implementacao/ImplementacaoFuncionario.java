@@ -17,12 +17,5 @@ public class ImplementacaoFuncionario implements FuncionarioDAO{
     public Funcionario get(int cod) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
-
-    @Override
-    public ArrayList<Funcionario> getAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getAll'");
-    }
-    
+    }  
 }
