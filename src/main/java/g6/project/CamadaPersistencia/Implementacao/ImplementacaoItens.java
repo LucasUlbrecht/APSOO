@@ -13,6 +13,7 @@ import g6.project.CamadaCodigo.Venda.ItemDeVenda;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaPeso;
 import g6.project.CamadaCodigo.Venda.ItemDeVendaUnitario;
 import g6.project.CamadaPersistencia.DAO.ItensDAO;
+import javafx.collections.ObservableList;
 
 public class ImplementacaoItens implements ItensDAO{
 
@@ -21,7 +22,7 @@ public class ImplementacaoItens implements ItensDAO{
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'get'");
     }
-    public void insertListPeso(ArrayList<ItemDeVendaPeso> t, int cod) throws SQLException{
+    public void insertListPeso(ObservableList<ItemDeVendaPeso> t, int cod) throws SQLException{
         Connection connection = Conexao.conectar();
         String sql = "INSERT INTO itemVenda  (valor, peso, codVenda) VALUES (?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
@@ -36,7 +37,7 @@ public class ImplementacaoItens implements ItensDAO{
             statement.executeBatch(); // Executa todos os inserts do batch
         }
     }
-    public void insertListUnitario(ArrayList<ItemDeVendaUnitario> t, int cod) throws SQLException{
+    public void insertListUnitario(ObservableList<ItemDeVendaUnitario> t, int cod) throws SQLException{
         Connection connection = Conexao.conectar();
         String sql = "INSERT INTO itemVenda  (valor, peso, quantidade, codVenda) VALUES (?, ?, ?, ?)";
         try (PreparedStatement statement = connection.prepareStatement(sql)) {

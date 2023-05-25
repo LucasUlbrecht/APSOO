@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import g6.project.CamadaCodigo.Funcionario.Funcionario;
+import javafx.collections.ObservableList;
 
 public class Venda {
     private Date data;
@@ -12,10 +13,10 @@ public class Venda {
     private float valorVenda;
     private LocalTime horario;
     private Pagamento Pagamento;
-    private ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario;
-    private ArrayList<ItemDeVendaPeso> listaDeVendaPeso;
+    private ObservableList<ItemDeVendaUnitario> listaDeVendaUnitario;
+    private ObservableList<ItemDeVendaPeso> listaDeVendaPeso;
     private Funcionario funcionario;
-    public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
+    public Venda(ObservableList<ItemDeVendaUnitario> listaDeVendaUnitario, ObservableList<ItemDeVendaPeso> listaDeVendaPeso,
      Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda){
         Date    data = new Date();
         LocalTime horaAtual = LocalTime.now();
@@ -27,7 +28,7 @@ public class Venda {
         setPagamento(Pagamento);
         setValorVenda(valorVenda);
     }
-    public Venda(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario, ArrayList<ItemDeVendaPeso> listaDeVendaPeso,
+    public Venda(ObservableList<ItemDeVendaUnitario> listaDeVendaUnitario, ObservableList<ItemDeVendaPeso> listaDeVendaPeso,
     Funcionario funcionario, Pagamento Pagamento, float valorVenda, int codigoVenda, Date data, LocalTime horaAtual){
        if(data==null){
            data = new Date();
@@ -46,10 +47,10 @@ public class Venda {
     public Funcionario getFuncionario() {
         return funcionario;
     }
-    public ArrayList<ItemDeVendaPeso> getListaDeVendaPeso() {
+    public ObservableList<ItemDeVendaPeso> getListaDeVendaPeso() {
         return listaDeVendaPeso;
     }
-    public ArrayList<ItemDeVendaUnitario> getListaDeVendaUnitario() {
+    public ObservableList<ItemDeVendaUnitario> getListaDeVendaUnitario() {
         return listaDeVendaUnitario;
     }
     public Pagamento getPagamento() {
@@ -71,10 +72,10 @@ public class Venda {
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-    public void setListaDeVendaPeso(ArrayList<ItemDeVendaPeso> listaDeVendaPeso) {
+    public void setListaDeVendaPeso(ObservableList<ItemDeVendaPeso> listaDeVendaPeso) {
         this.listaDeVendaPeso = listaDeVendaPeso;
     }
-    public void setListaDeVendaUnitario(ArrayList<ItemDeVendaUnitario> listaDeVendaUnitario) {
+    public void setListaDeVendaUnitario(ObservableList<ItemDeVendaUnitario> listaDeVendaUnitario) {
         this.listaDeVendaUnitario = listaDeVendaUnitario;
     }
     public void setPagamento(Pagamento pagamento) {
