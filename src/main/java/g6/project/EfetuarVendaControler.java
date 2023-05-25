@@ -139,7 +139,7 @@ public class EfetuarVendaControler implements Initializable{
         catch(NullPointerException e){}
         try{
             listaItens = FXCollections.observableArrayList();
-        tabela.setItems(listaItens);}
+            tabela.setItems(listaItens);}
         catch(NullPointerException e){}
         try{
             inserirPeso.setOnKeyPressed(event -> {
@@ -240,6 +240,7 @@ public class EfetuarVendaControler implements Initializable{
             this.associarListaItemDeVendaPeso(tmp);
             this.setValorTotal(this.getValorTotal()+tmp.getValor());
             ItemDeVenda tmpItemVend = new ItemDeVenda(tmp.getNome(), tmp.getValor());
+            listaItens = tabela.getItems();
             listaItens.add(tmpItemVend);
             for(ItemDeVenda uwu:listaItens){
                 System.out.println("valor: "+uwu.getValor()+" nome: "+uwu.getNome());
@@ -273,6 +274,7 @@ public class EfetuarVendaControler implements Initializable{
             this.associarListaItemDeVendaUnitario(tmp);
             this.setValorTotal(this.getValorTotal()+tmp.getValor());
             ItemDeVenda tmpItemVend = new ItemDeVenda(tmp.getNome(), tmp.getValor());
+            listaItens = tabela.getItems();
             listaItens.add(tmpItemVend);
             for(ItemDeVenda uwu:listaItens){
                 System.out.println("valor: "+uwu.getValor()+" nome: "+uwu.getNome());
