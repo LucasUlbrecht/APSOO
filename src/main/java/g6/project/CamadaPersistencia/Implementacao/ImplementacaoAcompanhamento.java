@@ -8,7 +8,7 @@ import g6.project.CamadaPersistencia.DAO.AcompanhamentoDAO;
 public class ImplementacaoAcompanhamento implements AcompanhamentoDAO{
 
     @Override
-    public int insert(Acompanhamento t) {
+    public void insert(Acompanhamento t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'insert'");
     }

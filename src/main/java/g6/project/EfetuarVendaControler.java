@@ -11,7 +11,9 @@ import java.util.ResourceBundle;
 
 import g6.project.CamadaCodigo.Venda.Pagamento;
 import g6.project.CamadaCodigo.Venda.Venda;
-import g6.project.CamadaPersistencia.Implementacao.ImplementacaoProdutoVendidvel;
+import g6.project.CamadaPersistencia.DAO.SorveteDAO;
+import g6.project.CamadaPersistencia.Implementacao.ImplementacaoItens;
+import g6.project.CamadaPersistencia.Implementacao.ImplementacaoSorvete;
 import g6.project.CamadaPersistencia.Implementacao.ImplementacaoVendaDAO;
 import g6.project.CamadaCodigo.Funcionario.Funcionario;
 import g6.project.CamadaCodigo.Produto.ProdutoVendivel;
@@ -31,6 +33,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -59,11 +62,11 @@ public class EfetuarVendaControler implements Initializable{
     private ArrayList<ItemDeVendaUnitario> listaItensUnitario;
     private Pagamento pagamento;
     private Funcionario funcionario;
-    private Venda venda;
-    private float valorTotal;
     private Venda v;
+    private float valorTotal;
+
     public Venda getVenda() {
-        return venda;
+        return v;
     }
     public Funcionario getFuncionario() {
         return funcionario;
@@ -78,7 +81,7 @@ public class EfetuarVendaControler implements Initializable{
         this.valorTotal = valorTotal;
     }
     public void setVenda(Venda venda) {
-        this.venda = venda;
+        this.v = venda;
     }
     public ArrayList<ItemDeVendaPeso> getListaItemDeVendaPeso() {
         return listaItensPeso;
@@ -104,10 +107,27 @@ public class EfetuarVendaControler implements Initializable{
     public void setFuncionario(Funcionario funcionario) {
         this.funcionario = funcionario;
     }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         totalLabel.setText("");
+        pesquisarCodBarras.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    this.adicionarItemVendaUnitario(null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        inserirPeso.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)) {
+                try {
+                    this.adicionarItemVendaPeso(null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
     
 
@@ -122,11 +142,10 @@ public class EfetuarVendaControler implements Initializable{
         inserirPeso.setText("");
         totalLabel.setText("");
         ObservableList<ItemDeVenda> listaItens = FXCollections.observableArrayList();
-        listaItens.add(null);
         tabela.setItems(listaItens);
+        listaItens.clear();
         return;
     }
-
 
 
     @FXML
@@ -140,13 +159,11 @@ public class EfetuarVendaControler implements Initializable{
         pixButton = new Button("Pix");
         pixButton.setOnAction(event -> {
             this.setPagamento(new Pagamento("Pix"));
-            
             popupStage.close();
         });
         dinheiroButton=new Button("Dinheiro");
         dinheiroButton.setOnAction(event -> {
             this.setPagamento(new Pagamento("Dinheiro"));
-            
             popupStage.close();
         });
         cartaoButton=new Button("Cartão");
@@ -160,7 +177,6 @@ public class EfetuarVendaControler implements Initializable{
     }
 
 
-
     @FXML
     public void adicionarItemVendaPeso(ActionEvent event) throws IOException{
         float peso=Float.parseFloat(inserirPeso.getText());
@@ -168,8 +184,8 @@ public class EfetuarVendaControler implements Initializable{
         ItemDeVendaPeso tmp;
         try {
             Connection connection = Conexao.conectar();
-            ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
-            ProdutoVendivel proVend= ProdVendDAO.get(cod);
+            ImplementacaoSorvete SorvDAO=new ImplementacaoSorvete();
+            ProdutoVendivel proVend= SorvDAO.get(cod);
             tmp=new ItemDeVendaPeso(proVend, proVend.getNomeProduto(), peso, 0);
             tmp.setValor(tmp.calculaValor());
             this.associarListaItemDeVendaPeso(tmp);
@@ -184,11 +200,8 @@ public class EfetuarVendaControler implements Initializable{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
         return;
     }
-
-
 
 
     @FXML
@@ -197,8 +210,8 @@ public class EfetuarVendaControler implements Initializable{
         ItemDeVendaUnitario tmp;
         try{
             Connection connection = Conexao.conectar();
-            ImplementacaoProdutoVendidvel ProdVendDAO=new ImplementacaoProdutoVendidvel();
-            tmp=new ItemDeVendaUnitario(null, cod, 1, ProdVendDAO.get(cod), 0);
+            ImplementacaoSorvete SorveteDAO=new ImplementacaoSorvete();
+            tmp=new ItemDeVendaUnitario(null, cod, 1, SorveteDAO.get(cod), 0);
             tmp.setValor(tmp.calculaValor());
             this.associarListaItemDeVendaUnitario(tmp);
             this.setValorTotal(this.getValorTotal()+tmp.getValor());
@@ -209,13 +222,11 @@ public class EfetuarVendaControler implements Initializable{
             tabela.setItems(listaItens);
             totalLabel.setText(Float.toString(valorTotal));
             Conexao.desconectar();
-            popUpConclusão();
+            popUpConclusao();
         } catch (SQLException e){
             e.printStackTrace();
         }
     }
-
-
 
     @FXML
     public void confirmar(ActionEvent event) throws IOException{
@@ -235,7 +246,8 @@ public class EfetuarVendaControler implements Initializable{
         }
         return;
     }
-    private void popUpConclusão(){
+
+    private void popUpConclusao(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText("Venda Concluída!");
         alert.showAndWait();

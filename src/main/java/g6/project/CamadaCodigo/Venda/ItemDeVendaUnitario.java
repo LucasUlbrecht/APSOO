@@ -11,7 +11,6 @@ public class ItemDeVendaUnitario extends ItemDeVenda{
         setCodigoItem(codigoItem);
         setProdVend(prodVend);
         setQuantidade(quantidade);
-        
     }
     public ProdutoVendivel getProdVend() {
         return prodVend;

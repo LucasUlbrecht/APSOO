@@ -8,7 +8,7 @@ import g6.project.CamadaPersistencia.DAO.SorveteDAO;
 public class ImplementacaoSorvete implements SorveteDAO {
 
     @Override
-    public int insert(Sorvete t) {
+    public void insert(Sorvete t) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'insert'");
     }

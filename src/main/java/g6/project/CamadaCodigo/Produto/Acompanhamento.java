@@ -1,6 +1,10 @@
 package g6.project.CamadaCodigo.Produto;
 
 public class Acompanhamento extends Produto{
+    public Acompanhamento(int codigoProduto, int lote, String nomeProduto, int quantidadeEstoque) {
+        super(codigoProduto, lote, nomeProduto);
+        setQuantidadeEstoque(lote);
+    }
     private int quantidadeEstoque;
     public int getQuantidadeEstoque() {
         return quantidadeEstoque;

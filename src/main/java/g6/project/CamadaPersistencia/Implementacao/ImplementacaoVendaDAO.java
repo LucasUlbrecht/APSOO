@@ -46,7 +46,7 @@ public class ImplementacaoVendaDAO implements VendaDAO{
     }
     }
     @Override
-    public int insert(Venda t){
+    public void insert(Venda t){
         try{
             Connection connection = Conexao.conectar();
             String sql = "INSERT INTO venda(codVenda, valor, tipoPagamento, data) VALUES(?, ?, ?, ?)";
@@ -59,10 +59,13 @@ public class ImplementacaoVendaDAO implements VendaDAO{
             Timestamp timestamp = Timestamp.valueOf(combinedDateTime);
             ps.setTimestamp(4,timestamp);
             int result = ps.executeUpdate();
-            return result;
+            ImplementacaoItens intDAO=new ImplementacaoItens();
+            intDAO.insertListPeso(t.getListaDeVendaPeso(), result);
+            intDAO.insertListUnitario(t.getListaDeVendaUnitario(), result);
+            return;
         }catch(SQLException e){
             e.printStackTrace();
-            return -1;
+            return;
         }
     }
 }

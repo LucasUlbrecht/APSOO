@@ -59,7 +59,7 @@
                         <Font size="15.0" />
                      </font>
                   </Button>
-                  <Button fx:id="cancelarVendaButton" layoutX="214.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="31.0" prefWidth="167.0" style="-fx-background-color: ffaec9; -fx-border-width: 5px; -fx-cursor: hand;" text="Cancelar Venda">
+                  <Button fx:id="cancelarVendaButton" layoutX="214.0" layoutY="28.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#cancelarVenda" prefHeight="31.0" prefWidth="167.0" style="-fx-background-color: ffaec9; -fx-border-width: 5px; -fx-cursor: hand;" text="Cancelar Venda">
                      <font>
                         <Font size="15.0" />
                      </font>

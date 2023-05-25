@@ -4,6 +4,11 @@ public class Produto {
     private int codigoProduto;
     private int lote;
     private String nomeProduto;
+    public Produto(int codigoProduto, int lote, String nomeProduto){
+        setCodigoProduto(codigoProduto);
+        setLote(lote);
+        setNomeProduto(nomeProduto);
+    }
     public int getCodigoProduto() {
         return codigoProduto;
     }
